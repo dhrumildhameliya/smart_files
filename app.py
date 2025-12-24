@@ -8,9 +8,10 @@ import zipfile
 from datetime import datetime
 import os
 
+IS_RENDER = os.getenv("RENDER") is not None
+
 os.makedirs("uploads", exist_ok=True)
 os.makedirs("outputs", exist_ok=True)
-
 
 app = Flask(__name__)
 app.secret_key = "smartfile"
@@ -204,10 +205,34 @@ def compress_pdf():
 
     return redirect(url_for("download_file", filename=output_filename))
 
-from docx2pdf import convert
+# from docx2pdf import convert
+
+# @app.route("/word-to-pdf", methods=["POST"])
+# def word_to_pdf():
+#     word_file = request.form.get("word_file")
+
+#     if not word_file:
+#         flash("Select Word file")
+#         return redirect(url_for("dashboard"))
+
+#     input_path = os.path.join(app.config["UPLOAD_FOLDER"], word_file)
+#     output_path = os.path.join(app.config["OUTPUT_FOLDER"], "word_converted.pdf")
+
+#     convert(input_path, output_path)
+
+#     clear_folder(app.config["UPLOAD_FOLDER"])
+
+#     return redirect(url_for("download_file", filename="word_converted.pdf"))
 
 @app.route("/word-to-pdf", methods=["POST"])
 def word_to_pdf():
+    if IS_RENDER:
+        flash("Word to PDF is not supported on cloud deployment.")
+        return redirect(url_for("dashboard"))
+
+    # Local machine only
+    from docx2pdf import convert
+
     word_file = request.form.get("word_file")
 
     if not word_file:
