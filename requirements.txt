@@ -4,4 +4,6 @@ Pillow
 PyPDF2
 Werkzeug
 gunicorn
+pdf2image
+
 
