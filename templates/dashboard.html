@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-4">
+
+    <h3 class="text-center mb-4"></h3>
+
+    <div class="row g-4">
+
+        <!-- MERGE PDF -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card action-card">
+                <h5>📑 Merge PDF</h5>
+                <form method="POST" action="/merge-pdf">
+                    {% for file in files if file.lower().endswith('.pdf') %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="pdf_files" value="{{ file }}">
+                        <label class="form-check-label">{{ file }}</label>
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-success w-100 mt-3" style="background-color:  #8f94fb;color: white;">Merge</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- IMAGE TO PDF -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card action-card">
+                <h5>🖼 Image → PDF</h5>
+                <form method="POST" action="/image-to-pdf">
+                    {% for file in files if file.lower().endswith(('.jpg','.jpeg','.png')) %}
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="image_files" value="{{ file }}">
+                        <label class="form-check-label">{{ file }}</label>
+                    </div>
+                    {% endfor %}
+                    <button class="btn btn-warning w-100 mt-3" style="background-color:  #8f94fb;color: white;">Convert</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- COMPRESS PDF -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card action-card">
+                <h5>🗜 Compress PDF</h5>
+                <form method="POST" action="/compress-pdf">
+                    <select name="compress_pdf" class="form-select">
+                        {% for file in files if file.lower().endswith('.pdf') %}
+                        <option value="{{ file }}">{{ file }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-lg w-100 mt-3" style="background-color:  #8f94fb;color: white;">Compress</button>
+                </form>
+            </div>
+        </div>
+        <!-- WORD TO PDF -->
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card action-card">
+                <h5>📄 Word → PDF</h5>
+
+                <form method="POST" action="/word-to-pdf">
+
+                    <select name="word_file" class="form-select" required>
+                        <option value="">Select Word File</option>
+                        {% for file in files %}
+                        {% if file.lower().endswith('.docx') %}
+                        <option value="{{ file }}">{{ file }}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+
+                    <button class="btn btn-info w-100 mt-3" style="background-color:  #8f94fb;color: white;">
+                        Convert to PDF
+                    </button>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

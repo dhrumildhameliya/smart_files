@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-7 col-md-9 col-sm-12">
+
+      <div class="card app-card">
+        <h3 class="text-center mb-3">Upload Files</h3>
+
+        <form method="POST" enctype="multipart/form-data">
+
+          <div class="mb-3">
+            <label class="form-label">Choose Files</label>
+            <input type="file" name="files" class="form-control" multiple required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Select Operation</label>
+
+            <select name="operation" class="form-select" required>
+              <option value="">-- Select --</option>
+              <option value="merge_pdf">Merge PDF</option>
+              <option value="image_to_pdf">Image → PDF</option>
+              <option value="compress_pdf">Compress PDF</option>
+              <option value="zip_files">Create ZIP</option>
+              <option value="word_to_pdf">Word → PDF</option>
+            </select>
+          </div>
+
+          <div class="d-grid">
+            <button class="btn btn-lg" style="background-color:  #8f94fb;color: white;">
+              Process Files
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

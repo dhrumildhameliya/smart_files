@@ -1,0 +1,5 @@
+Flask
+pikepdf
+Pillow
+PyPDF2
+Werkzeug
