@@ -3,3 +3,5 @@ pikepdf
 Pillow
 PyPDF2
 Werkzeug
+gunicorn
+
